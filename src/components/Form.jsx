@@ -29,12 +29,12 @@ export default function Form({signer, contractAddress, receiver, amount, contrac
         let tokendecimals = await contractobj?.decimals()
         let decimals = Number(tokendecimals)
         let formatedAmount = allowance * (10 ** decimals)
-        console.log(tokendecimals, decimals, allowance, formatedAmount)
+        //console.log(tokendecimals, decimals, allowance, formatedAmount)
         let tx = await contractWithSigner?.approve(recipient, BigNumber.from(formatedAmount.toString()))
         if(tx.to == tokenCa){
             setDetail({approve_amount: allowance})
         }
-        console.log(tx)
+        //console.log(tx)
     }
 
     function saveRecipeint(){

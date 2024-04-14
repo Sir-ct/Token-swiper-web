@@ -31,7 +31,7 @@ function App() {
           setAddress(accounts[0])
           setSigner(signer)
           setTokenContract(contract)
-          console.log('signer:', signer, "accounts:",accounts, "contract", contract)
+          //console.log('signer:', signer, "accounts:",accounts, "contract", contract)
         }catch(err){
           alert(err.message);
         }
@@ -52,7 +52,7 @@ function App() {
             let contract = erc20Contract(tokenContractAddress, provider)
             setSigner(signer)
             setTokenContract(contract)
-            console.log("signer", signer, "address:", address, "contract:", contract);
+            //console.log("signer", signer, "address:", address, "contract:", contract);
           }else{
             alert("Click on the connect wallet button to connect")
           }
@@ -79,7 +79,7 @@ function App() {
   }
 
   useEffect(()=>{
-    console.log("in useEffect", details)
+    //console.log("in useEffect", details)
     setAddress(details.owner_address)
     setTokenContractAddress(details.token_ca)
     setTokenAllowance(details.approve_amount)

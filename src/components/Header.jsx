@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 
 export default function Header({walletAddress, connectWallet}){
-  console.log("wallet address", walletAddress)
+  //console.log("wallet address", walletAddress)
     return(
       <div className='header'>
         <div>Token Swiper</div>
