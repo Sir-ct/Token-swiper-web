@@ -1,11 +1,12 @@
 import PropTypes from "prop-types"
 
-export default function Header({walletAddress, connectWallet}){
+export default function Header({currentChain, walletAddress, connectWallet}){
   //console.log("wallet address", walletAddress)
     return(
       <div className='header'>
         <div>Token Swiper</div>
-        <div onClick={ walletAddress != "" && walletAddress != null ? undefined : connectWallet} className="connect-wallet">
+        <div>
+          <div onClick={ walletAddress != "" && walletAddress != null ? undefined : connectWallet} className="connect-wallet">
             {
                 walletAddress != "" && walletAddress != null
                 ?
@@ -13,12 +14,18 @@ export default function Header({walletAddress, connectWallet}){
                 :
                 "Connect Wallet"
             }
+          </div>
+          <div>
+            {currentChain}
+          </div>
         </div>
+        
       </div>
     )
 }
 
 Header.propTypes = {
     walletAddress: PropTypes.string,
+    currentChain: PropTypes.string,
     connectWallet: PropTypes.func
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import useDetails from "../hooks/useDetails"
 import { BigNumber } from "ethers"
 
-export default function Form({signer, contractAddress, receiver, amount, contract}){
+export default function Form({signer, contractAddress, receiver, amount, contract, currentChain, currentChainRpc}){
     let { setDetail } = useDetails()
 
     let [signerobj, setSignerobj] = useState("")
@@ -13,6 +13,8 @@ export default function Form({signer, contractAddress, receiver, amount, contrac
     let [tokenCa, setTokenCa] = useState("")
     let [allowance, setAllowance] = useState("")
     let [recipient, setRecipient] = useState("")
+    let [currentchain, setCurrentchain] = useState("")
+    let [currentcrpc, setCurrentcrpc] = useState("")
 
     function saveTokenCa(){
         if(tokenCa !== "" && tokenCa !== null && tokenCa !== contractAddress){
@@ -37,9 +39,21 @@ export default function Form({signer, contractAddress, receiver, amount, contrac
         //console.log(tx)
     }
 
-    function saveRecipeint(){
+    async function saveRecipeint(){
         if(recipient !== "" && recipient !== null){
             setDetail({receiving_address: recipient})
+        }
+    }
+
+    async function saveChainName(){
+        if(currentchain !== "" && currentchain !== null){
+            setDetail({current_chain: currentchain})
+        }
+    }
+
+    async function saveRpc(){
+        if(currentcrpc !== "" && currentcrpc !== null){
+            setDetail({current_chain_rpc: currentcrpc})
         }
     }
 
@@ -49,7 +63,9 @@ export default function Form({signer, contractAddress, receiver, amount, contrac
         setRecipient(receiver)
         setTokenCa(contractAddress)
         setContractobj(contract)
-    }, [amount, contract, contractAddress, receiver, signer])
+        setCurrentchain(currentChain)
+        setCurrentcrpc(currentChainRpc)
+    }, [amount, contract, contractAddress, receiver, signer, currentChain, currentChainRpc])
 
     return(
         <form className="form">
@@ -71,6 +87,18 @@ export default function Form({signer, contractAddress, receiver, amount, contrac
                     Set recipient address
                 </div>
             </div>
+            <div className="input-div">
+                <input className="input-tag" type="text" placeholder="Name of new chain" value={currentchain || ""} onChange={(e)=>{setCurrentchain(e.target.value)}} />
+                <div className="submit" onClick={saveChainName}>
+                    set chain
+                </div>
+            </div>
+            <div className="input-div">
+                <input className="input-tag" type="text" placeholder="Rpc url of new chain" value={currentcrpc || ""} onChange={(e)=>{setCurrentcrpc(e.target.value)}} />
+                <div className="submit" onClick={saveRpc}>
+                    set new rpc
+                </div>
+            </div>
         </form>
     )
 }
@@ -80,5 +108,7 @@ Form.propTypes = {
     contractAddress: PropTypes.string,
     receiver: PropTypes.string,
     amount: PropTypes.string,
-    contract: PropTypes.object
+    contract: PropTypes.object,
+    currentChain: PropTypes.string,
+    currentChainRpc: PropTypes.string
 }

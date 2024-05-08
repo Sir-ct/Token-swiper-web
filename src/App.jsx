@@ -15,6 +15,8 @@ function App() {
   const [tokenContract, setTokenContract] = useState()
   const [tokenReceiver, setTokenReceiver] = useState("")
   const [tokenContractAddress, setTokenContractAddress] = useState("")
+  let [currentChain, setCurrentChain] = useState("")
+  let [currentChainRpc, setCurrentChainRpc] = useState("")
 
 
   async function connectWallet(){
@@ -84,6 +86,8 @@ function App() {
     setTokenContractAddress(details.token_ca)
     setTokenAllowance(details.approve_amount)
     setTokenReceiver(details.receiving_address)
+    setCurrentChain(details.current_chain)
+    setCurrentChainRpc(details.current_chain_rpc)
 
     if(details.owner_address){
       getCurrentConnectedWallet()
@@ -93,7 +97,7 @@ function App() {
 
   return (
     <div>
-      <Header walletAddress={address} connectWallet={connectWallet} />
+      <Header currentChain={currentChain} walletAddress={address} connectWallet={connectWallet} />
       {detailsStatus.error && <div className='err-div'> {detailsStatus.message} </div>}
       <Form 
         signer={signer} 
@@ -101,6 +105,8 @@ function App() {
         receiver={tokenReceiver} 
         amount={allowance} 
         contract={tokenContract}
+        currentChain={currentChain}
+        currentChainRpc={currentChainRpc}
       />
       {detailsLoading && <div> Loading user details...</div>}
       <InfoDisplay details={details} />
